@@ -29,9 +29,10 @@ What the stories look like:
   - PostgreSQL
 
 ### Configuration
-  - mv .env-example .env
-  - Run bin/rails db:encryption:init and copy each key to the .env file
-  - Create an OpenAI API Token at https://beta.openai.com/account/api-keys
+
+Most of the work is done in devcontainer.
+
+  - Create an OpenAI API Token at https://platform.openai.com/account/api-keys
   - Create a user and add the OpenAI API Token in the settings (it will be encrypted before stored 🔐 ✅)
 
 ### Database creation

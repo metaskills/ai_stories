@@ -1,0 +1,26 @@
+services:
+  app:
+    build: { context: ., dockerfile: Dockerfile }
+    command: sleep infinity
+    privileged: true
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PASSWORD: root
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432
+      REDIS_URL: redis://redis:6379/
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+  postgres:
+    image: postgres:latest
+    volumes: ["data-postgres:/var/lib/postgresql/data"]
+    environment:
+      POSTGRES_PASSWORD: postgres
+    healthcheck: { test: pg_isready -U postgres -h 127.0.0.1 }
+  redis:
+    image: redis:latest
+    volumes: ["data-redis:/data"]
+    healthcheck: { test: redis-cli ping }
+volumes:
+  data-postgres:
+  data-redis:
